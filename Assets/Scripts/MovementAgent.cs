@@ -4,22 +4,24 @@ using UnityEngine;
 
 public class MovementAgent : MonoBehaviour
 {
-    [SerializeField]
-    private float m_Speed;
-    [SerializeField]
-    private Vector3 m_Target;
-
-    private const float TOLERANCE = 0.1f;
-    void Update()
+    [SerializeField] private Vector3 V_start;
+    [SerializeField] private float M;
+    [SerializeField] private float G;
+    [SerializeField] private Vector3 R;
+    
+    private const float TOLERANCE = 1f;
+    void FixedUpdate()
     {
-        float distance = (m_Target - transform.position).magnitude;
+        float distance = (R - transform.position).magnitude;
         if (distance < TOLERANCE)
         {
             return;
         }
+
+        Vector3 a = G * M * (R - transform.position).normalized / (distance * distance);
         
-        Vector3 dir = (m_Target - transform.position).normalized;
-        Vector3 delta = dir *(m_Speed * Time.deltaTime);
+        Vector3 delta = V_start * Time.fixedDeltaTime + a * (Time.fixedDeltaTime * Time.fixedDeltaTime) / 2;
         transform.Translate(delta);
+        V_start += a * Time.fixedDeltaTime;  
     }
 }
