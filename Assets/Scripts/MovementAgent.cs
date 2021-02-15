@@ -9,16 +9,17 @@ public class MovementAgent : MonoBehaviour
     [SerializeField] private float G;
     [SerializeField] private Vector3 R;
     
-    private const float TOLERANCE = 1f;
+    private const float TOLERANCE = 1000f;
     void FixedUpdate()
     {
         float distance = (R - transform.position).magnitude;
-        if (distance < TOLERANCE)
+
+        Vector3 a = G * M * (R - transform.position).normalized / (distance * distance);
+
+        if (a.magnitude > TOLERANCE)
         {
             return;
         }
-
-        Vector3 a = G * M * (R - transform.position).normalized / (distance * distance);
         
         Vector3 delta = V_start * Time.fixedDeltaTime + a * (Time.fixedDeltaTime * Time.fixedDeltaTime) / 2;
         transform.Translate(delta);

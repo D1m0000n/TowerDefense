@@ -489,7 +489,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30e143c8c2292d44e942b2fe3e8443be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  V_start: {x: 3, y: 0, z: -3}
+  V_start: {x: -2, y: 0, z: -1}
   M: 30
   G: 10
   R: {x: 0, y: 0, z: 0}
