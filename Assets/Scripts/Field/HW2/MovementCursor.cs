@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Field.Homework
+namespace Field.HW2
 {
     public class MovementCursor : MonoBehaviour
     {

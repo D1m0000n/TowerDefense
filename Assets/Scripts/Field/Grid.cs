@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace Field
 {
@@ -9,7 +10,14 @@ namespace Field
         private int m_Width;
         private int m_Height;
 
-        public Grid(int width, int height)
+        private FlowFieldPathfinding m_Pathfinding;
+        
+        public int Width => m_Width;
+
+        public int Height => m_Height;
+
+
+        public Grid(int width, int height, Vector3 offset, float nodeSize, Vector2Int target)
         {
             m_Width = width;
             m_Height = height;
@@ -20,9 +28,13 @@ namespace Field
             {
                 for (int j = 0; j < m_Nodes.GetLength(1); j++)
                 {
-                    m_Nodes[i, j] = new Node();
+                    m_Nodes[i, j] = new Node(offset + new Vector3(i + .5f, 0, j + .5f) * nodeSize);
                 }
             }
+
+            m_Pathfinding = new FlowFieldPathfinding(this, target);
+            
+            m_Pathfinding.UpdateField();
         }
 
         public Node GetNode(Vector2Int coonrdinate)
@@ -43,6 +55,22 @@ namespace Field
             }
 
             return m_Nodes[i, j];
+        }
+
+        public IEnumerable<Node> EnumerateNodes()
+        {
+            for (int i = 0; i < m_Width; i++)
+            {
+                for (int j = 0; j < m_Height; j++)
+                {
+                    yield return GetNode(i, j);
+                }
+            }
+        }
+
+        public void UpdatePathfinding()
+        {
+            m_Pathfinding.UpdateField();
         }
     }
 }
