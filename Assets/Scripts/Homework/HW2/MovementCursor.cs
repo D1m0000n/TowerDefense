@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Field.HW2
+namespace Homework.HW2
 {
     public class MovementCursor : MonoBehaviour
     {
@@ -67,15 +67,20 @@ namespace Field.HW2
 
             if (Physics.Raycast(ray, out RaycastHit hit))
             {
+                if (hit.transform != transform)
+                {
+                    m_Cursor.SetActive(false);
+                    return;
+                }
                 Vector3 hitPosition = hit.point;
                 Vector3 difference = hitPosition - m_Offset;
 
                 int x = (int) (difference.x / m_NodeSize);
                 int y = (int) (difference.z / m_NodeSize);
 
+                m_Cursor.SetActive(true);
                 if (Input.GetMouseButtonDown(1))
                 {
-                    m_Cursor.SetActive(true);
                     Debug.Log("Right Button");
                     m_Cursor.transform.position = 
                         new Vector3(x * m_NodeSize + m_NodeSize * 0.5f, 0f, y * m_NodeSize + m_NodeSize * 0.5f) + m_Offset;
@@ -95,21 +100,21 @@ namespace Field.HW2
             Gizmos.DrawSphere(m_Offset, 0.1f);
 
             var rightBound = new Vector3(m_Offset.x, m_Offset.y, m_RightEdge.z);
-            var leftBond = new Vector3(m_Offset.x, m_Offset.y, m_Offset.z);
+            var leftBound = m_Offset;
 
             for (int i = 0; i <= m_GridWidth; ++i)
             {
-                Gizmos.DrawLine(leftBond, rightBound);
-                leftBond.x += m_NodeSize;
+                Gizmos.DrawLine(leftBound, rightBound);
+                leftBound.x += m_NodeSize;
                 rightBound.x += m_NodeSize;
             }
             
-            leftBond = new Vector3(m_Offset.x, m_Offset.y, m_Offset.z);
+            leftBound = m_Offset;
             rightBound = new Vector3(m_RightEdge.x, m_Offset.y, m_Offset.z);
             for (int i = 0; i <= m_GridHeight; ++i)
             {
-                Gizmos.DrawLine(leftBond, rightBound);
-                leftBond.z += m_NodeSize;
+                Gizmos.DrawLine(leftBound, rightBound);
+                leftBound.z += m_NodeSize;
                 rightBound.z += m_NodeSize;
             }
         }

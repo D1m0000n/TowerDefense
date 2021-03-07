@@ -1,10 +1,12 @@
-﻿using UnityEngine;
+﻿using Field;
+using UnityEngine;
 
-namespace Field.HW2
+namespace Homework.HW2
 {
     public class Grid
     {
         private Node[,] m_Nodes;
+        
 
         private int m_Width;
         private int m_Height;

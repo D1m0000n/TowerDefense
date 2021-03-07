@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Field.HW2
+namespace Homework.HW2
 {
     public class MovementAgent : MonoBehaviour
     {
