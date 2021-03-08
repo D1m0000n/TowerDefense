@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Homework.HW3;
 using UnityEngine;
 
 namespace Field
@@ -17,7 +18,7 @@ namespace Field
         public int Height => m_Height;
 
 
-        public Grid(int width, int height, Vector3 offset, float nodeSize, Vector2Int target)
+        public Grid(int width, int height, Vector3 offset, float nodeSize, Vector2Int target, Vector2Int start)
         {
             m_Width = width;
             m_Height = height;
@@ -32,9 +33,10 @@ namespace Field
                 }
             }
 
-            m_Pathfinding = new FlowFieldPathfinding(this, target);
+            m_Pathfinding = new FlowFieldPathfinding(this, target, start);
             
             m_Pathfinding.UpdateField();
+            m_Pathfinding.SetAllNodeStatus();
         }
 
         public Node GetNode(Vector2Int coonrdinate)
@@ -71,6 +73,26 @@ namespace Field
         public void UpdatePathfinding()
         {
             m_Pathfinding.UpdateField();
+            m_Pathfinding.SetAllNodeStatus();
+        }
+
+        public void TryOccupyNode(Vector2Int coordinate, bool occupy)
+        {
+            Node node = GetNode(coordinate);
+            if (!occupy)
+            {
+                node.SetOccupationAvailability(OccupationAvailability.Undefined);
+                node.IsOccupied = false;
+                return;
+            }
+            bool canOccupy = m_Pathfinding.CanOccupy(coordinate);
+            if (canOccupy)
+            {
+                node.SetOccupationAvailability(OccupationAvailability.CanNotOccupy);
+                node.IsOccupied = true;
+                return;
+            }
+            Debug.Log(coordinate + " can not be occupied");
         }
     }
 }
