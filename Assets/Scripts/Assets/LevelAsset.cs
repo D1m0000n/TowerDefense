@@ -1,7 +1,8 @@
-﻿using UnityEditor;
+﻿using EnemySpawn;
+using UnityEditor;
 using UnityEngine;
 
-namespace Resources
+namespace Assets
 {
     [CreateAssetMenu(menuName = "Assets/Level Asset", fileName = "Level Asset")]
     public class LevelAsset : ScriptableObject

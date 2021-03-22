@@ -1,22 +1,17 @@
-﻿using System;
+﻿using Field;
 using UnityEngine;
 
-namespace Field
+namespace Homework.HW3
 {
     public class GridHolder : MonoBehaviour
     {
-        [SerializeField]
-        private int m_GridWidth;
-        [SerializeField]
-        private int m_GridHeight;
+        [SerializeField] private int m_GridWidth;
+        [SerializeField] private int m_GridHeight;
 
-        [SerializeField]
-        private Vector2Int m_TargetCoordinate;
-        [SerializeField]
-        private Vector2Int m_StartCoordinate;
+        [SerializeField] private Vector2Int m_TargetCoordinate;
+        [SerializeField] private Vector2Int m_StartCoordinate;
 
-        [SerializeField]
-        private float m_NodeSize;
+        [SerializeField] private float m_NodeSize;
 
         private Grid m_Grid;
 
@@ -28,22 +23,22 @@ namespace Field
 
         public Grid Grid => m_Grid;
 
-        public void CreateGrid()
+        private void Start()
         {
             m_Camera = Camera.main;
 
             float width = m_GridWidth * m_NodeSize;
             float height = m_GridHeight * m_NodeSize;
             
-            // Default plane size is 10 by 10
+            // Default plase size is 10 by 10
             transform.localScale = new Vector3(
-                width * 0.1f, 
+                width * 0.1f,
                 1f,
                 height * 0.1f);
 
             m_Offset = transform.position -
                        (new Vector3(width, 0f, height) * 0.5f);
-            m_Grid = new Grid(m_GridWidth, m_GridHeight, m_Offset, m_NodeSize, m_StartCoordinate, m_TargetCoordinate);
+            m_Grid = new Grid(m_GridWidth, m_GridHeight, m_Offset, m_NodeSize, m_TargetCoordinate, m_StartCoordinate);
         }
 
         private void OnValidate()
@@ -51,17 +46,18 @@ namespace Field
             float width = m_GridWidth * m_NodeSize;
             float height = m_GridHeight * m_NodeSize;
             
-            // Default plane size is 10 by 10
+            // Default plase size is 10 by 10
             transform.localScale = new Vector3(
-                width * 0.1f, 
+                width * 0.1f,
                 1f,
                 height * 0.1f);
 
             m_Offset = transform.position -
                        (new Vector3(width, 0f, height) * 0.5f);
+            m_Grid = new Grid(m_GridWidth, m_GridHeight, m_Offset, m_NodeSize, m_TargetCoordinate, m_StartCoordinate);
         }
 
-        public void RaycastInGrid()
+        private void Update()
         {
             if (m_Grid == null || m_Camera == null)
             {
@@ -76,7 +72,6 @@ namespace Field
             {
                 if (hit.transform != transform)
                 {
-                    m_Grid.UnselectNode();
                     return;
                 }
 
@@ -86,11 +81,12 @@ namespace Field
                 int x = (int) (difference.x / m_NodeSize);
                 int y = (int) (difference.z / m_NodeSize);
 
-                m_Grid.SelectCoordinate(new Vector2Int(x, y));
-            }
-            else
-            {
-                m_Grid.UnselectNode();
+                if (Input.GetMouseButtonDown(0))
+                {
+                    Node node = m_Grid.GetNode(x, y);
+                    m_Grid.TryOccupyNode(new Vector2Int(x, y), !node.IsOccupied);
+                    m_Grid.UpdatePathfinding();
+                }
             }
         }
 
@@ -103,12 +99,13 @@ namespace Field
             
             Gizmos.color = Color.red;
 
-            foreach (Node node in m_Grid.EnumerateAllNodes())
+            foreach (Node node in m_Grid.EnumerateNodes())
             {
                 if (node.NextNode == null)
                 {
                     continue;
                 }
+
                 if (node.IsOccupied)
                 {
                     Gizmos.color = Color.black;
@@ -119,11 +116,11 @@ namespace Field
                 Vector3 start = node.Position;
                 Vector3 end = node.NextNode.Position;
 
-                Vector3 dir = end - start;
+                Vector3 dir = (end - start);
 
                 start -= dir * 0.25f;
                 end -= dir * 0.75f;
-
+                
                 Gizmos.DrawLine(start, end);
                 Gizmos.DrawSphere(end, 0.1f);
             }

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Net;
-using Resources;
+using Assets;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.SceneManagement;

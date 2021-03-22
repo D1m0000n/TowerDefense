@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Resources;
-using Resources;
+using Assets;
 using UnityEngine;
 
 namespace Runtime

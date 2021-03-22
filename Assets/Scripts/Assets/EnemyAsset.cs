@@ -1,7 +1,7 @@
 ﻿using Enemy;
 using UnityEngine;
 
-namespace Resources
+namespace Assets
 {
     [CreateAssetMenu(menuName = "Assets/Enemy Asset", fileName = "Enemy Asset")]
     public class EnemyAsset : ScriptableObject
@@ -9,5 +9,7 @@ namespace Resources
         public int StartHealth;
         
         public EnemyView ViewPrefab;
+
+        public bool IsFlyingEnemy;
     }
 }
