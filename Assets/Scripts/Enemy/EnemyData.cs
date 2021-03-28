@@ -1,6 +1,4 @@
-﻿using Assets;
-
-namespace Enemy
+﻿namespace Enemy
 {
     public class EnemyData
     {

@@ -1,9 +1,9 @@
-﻿using Assets;
+﻿using System;
 using Enemy;
 
 namespace EnemySpawn
 {
-    [System.Serializable]
+    [Serializable]
     public class SpawnWave
     {
         public EnemyAsset EnemyAsset;

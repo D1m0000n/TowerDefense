@@ -1,4 +1,5 @@
 ﻿using Field;
+using Runtime;
 using UnityEngine;
 using Grid = Field.Grid;
 
@@ -8,11 +9,17 @@ namespace Enemy
     {
         private float m_Speed;
         private Transform m_Transform;
+        private EnemyData m_Data;
 
-        public FlyingMovementAgent(float speed, Transform transform, Grid grid)
+        public FlyingMovementAgent(float speed, Transform transform, Grid grid, EnemyData data)
         {
             m_Speed = speed;
             m_Transform = transform;
+            m_Data = data;
+            
+            Node node = Game.Player.Grid.GetNodeAtPoint(transform.position);
+            node.EnemyDatas.Add(data);
+            
             SetTargetNode(grid.GetTargetNode());
         }
         

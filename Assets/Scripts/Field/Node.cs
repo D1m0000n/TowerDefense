@@ -1,10 +1,13 @@
-﻿using Homework.HW3;
+﻿using System.Collections.Generic;
+using Enemy;
+using Homework.HW3;
 using UnityEngine;
 
 namespace Field
 {
     public class Node
     {
+        public List<EnemyData> EnemyDatas;
         public Vector3 Position;
         
         public Node NextNode;
