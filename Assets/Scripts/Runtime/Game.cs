@@ -38,7 +38,6 @@ namespace Runtime
             }
             s_Player = new Player();
             s_Runner = Object.FindObjectOfType<Runner>();
-            Debug.Log(s_Runner.ToString());
             s_Runner.StartRunning();
         }
 
