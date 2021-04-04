@@ -10,6 +10,7 @@ namespace Enemy
         private float m_Speed;
         private Transform m_Transform;
         private EnemyData m_Data;
+        private Node prevNode = null;
 
         public FlyingMovementAgent(float speed, Transform transform, Grid grid, EnemyData data)
         {
@@ -44,9 +45,22 @@ namespace Enemy
                 return;
             }
 
+            if (prevNode == null)
+            {
+                prevNode = Game.Player.Grid.GetNodeAtPoint(m_Transform.position);
+            }
             Vector3 dir = direction.normalized;
             Vector3 delta = dir * (m_Speed * Time.deltaTime);
             m_Transform.Translate(delta);
+            Node curNode = Game.Player.Grid.GetNodeAtPoint(m_Transform.position);
+
+            if (prevNode != curNode)
+            {
+                prevNode.EnemyDatas.Remove(m_Data);
+                curNode.EnemyDatas.Add(m_Data);
+            }
+
+            prevNode = curNode;
         }
 
         private void SetTargetNode(Node node)

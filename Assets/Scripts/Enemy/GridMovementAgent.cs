@@ -10,6 +10,7 @@ namespace Enemy
         private float m_Speed;
         private Transform m_Transform;
         private EnemyData m_Data;
+        private Node prevNode = null;
 
         public GridMovementAgent(float speed, Transform transform, Grid grid, EnemyData data)
         {
@@ -43,7 +44,10 @@ namespace Enemy
                 return;
             }
 
-            Node prevNode = Game.Player.Grid.GetNodeAtPoint(m_Transform.position);
+            if (prevNode == null)
+            {
+                prevNode = Game.Player.Grid.GetNodeAtPoint(m_Transform.position);
+            }
             Vector3 dir = (target - m_Transform.position).normalized;
             Vector3 delta = dir * (m_Speed * Time.deltaTime);
             m_Transform.Translate(delta);
@@ -51,14 +55,11 @@ namespace Enemy
 
             if (prevNode != curNode)
             {
-                // проверка на всякий случай
-                if (prevNode.EnemyDatas.Contains(m_Data))
-                {
-                    prevNode.EnemyDatas.Remove(m_Data);
-                }
-                curNode.EnemyDatas.Remove(m_Data);
+                prevNode.EnemyDatas.Remove(m_Data);
+                curNode.EnemyDatas.Add(m_Data);
             }
 
+            prevNode = curNode;
         }
 
         private void SetTargetNode(Node node)
