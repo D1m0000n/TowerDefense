@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1e48b86459e484ebc8d2e30738e8b18, type: 3}
+  m_Name: Level 1 Asset
+  m_EditorClassIdentifier: 
+  SceneAsset: {fileID: 102900000, guid: f2d40939c882e22429042f74f01415c8, type: 3}
+  SpawnWavesAsset: {fileID: 11400000, guid: c52739635fc18214797b5fcf6c624508, type: 2}
+  TurretMarketAsset: {fileID: 11400000, guid: 0c27833eec6b35141841df7405cf69f6, type: 2}
