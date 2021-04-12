@@ -20,11 +20,11 @@ namespace Enemy
         {
             if (m_Data.Asset.IsFlyingEnemy)
             {
-                m_MovementAgent = new FlyingMovementAgent(2f, transform, grid, m_Data);
+                m_MovementAgent = new FlyingMovementAgent(m_Data.Asset.Speed, transform, grid, m_Data);
             }
             else
             {
-                m_MovementAgent = new GridMovementAgent(5f, transform, grid, m_Data);
+                m_MovementAgent = new GridMovementAgent(m_Data.Asset.Speed, transform, grid, m_Data);
             }
         }
     }

@@ -9,11 +9,17 @@ namespace Turret.Weapon.Projectile.Rocket
 {
     public class RocketProjectile : MonoBehaviour, IProjectile
     {
-        private float m_Speed = 10f;
-        private int m_Damage = 5;
+        private float m_Speed;
+        private float m_Damage;
         private float m_DamageRadius = 5f;
         private bool m_DidHit = false;
         private EnemyData m_TargetEnemy;
+
+        public void SetAsset(RocketProjectileAsset rocketProjectileAsset)
+        {
+            m_Speed = rocketProjectileAsset.Speed;
+            m_Damage = rocketProjectileAsset.Damage;
+        }
         public void TickApproaching()
         {
             Vector3 direction = m_TargetEnemy.View.transform.position - transform.position + Vector3.up * 0.5f;

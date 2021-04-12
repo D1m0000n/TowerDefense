@@ -8,13 +8,15 @@ namespace Enemy
         private float m_Health;
         
         public EnemyView View => m_View;
-        public readonly EnemyAsset Asset;
+        public EnemyAsset m_Asset;
+        public EnemyAsset Asset => m_Asset;
 
         public EnemyData(EnemyAsset asset)
-        {
-            Asset = asset;
+        { 
+            m_Asset = asset;
             m_Health = asset.StartHealth;
         }
+
 
         public void AttachView(EnemyView view)
         {

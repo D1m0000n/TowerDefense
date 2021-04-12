@@ -13,3 +13,5 @@ MonoBehaviour:
   m_Name: Rocket
   m_EditorClassIdentifier: 
   m_RocketPrefab: {fileID: 3916437653826699882, guid: c9b56a70394c02642a671de98733d758, type: 3}
+  Speed: 4
+  Damage: 8
