@@ -27,6 +27,12 @@ namespace Enemy
         private const float TOLERANCE = 0.1f;
 
         private Node m_TargetNode;
+        
+        public void Die()
+        {
+            Node node = Game.Player.Grid.GetNodeAtPoint(m_Transform.position);
+            node.EnemyDatas.Remove(m_Data);
+        }
 
         public void TickMovement()
         {

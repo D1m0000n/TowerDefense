@@ -28,6 +28,12 @@ namespace Enemy
 
         private Node m_TargetNode;
 
+        public void Die()
+        {
+            Node node = Game.Player.Grid.GetNodeAtPoint(m_Transform.position);
+            node.EnemyDatas.Remove(m_Data);
+        }
+
         public void TickMovement()
         {
             if (m_TargetNode == null)

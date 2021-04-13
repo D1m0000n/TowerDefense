@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Runtime;
+using UnityEngine;
 
 namespace Enemy
 {
@@ -8,7 +9,8 @@ namespace Enemy
         private float m_Health;
         
         public EnemyView View => m_View;
-        public EnemyAsset m_Asset;
+        public 
+            EnemyAsset m_Asset;
         public EnemyAsset Asset => m_Asset;
 
         public EnemyData(EnemyAsset asset)
@@ -36,6 +38,9 @@ namespace Enemy
         private void Die()
         {
             Debug.Log("Die!");
+            m_View.AnimateDeath();
+            Game.Player.EnemyDied(this);
+            m_View.MovementAgent.Die();
         }
     }
 }
